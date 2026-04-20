@@ -6,20 +6,20 @@ const User = require('../models/User');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-// Register (admin only)
+// Register
 router.post('/register', async (req, res) => {
   try {
-    const { username, password, adminSecret } = req.body;
+    const { username, password } = req.body;
     
-    // Verify admin secret
-    if (adminSecret !== process.env.ADMIN_SECRET) {
-      return res.status(403).json({ message: 'Invalid admin credentials' });
+    // Validate input
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
     }
     
     // Check if user already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'Username already taken' });
     }
 
     const user = new User({ username, password });

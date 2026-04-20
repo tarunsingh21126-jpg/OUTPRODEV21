@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { FiSend, FiCheck } from 'react-icons/fi';
+import { FiSend, FiCheck, FiUser } from 'react-icons/fi';
+import { useAuth } from '../contexts/AuthContext';
 
 const Contact = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { user } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -27,12 +29,16 @@ const Contact = () => {
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
+          <div className="flex items-center justify-center space-x-2 mb-4 text-green-600 dark:text-green-400">
+            <FiUser size={20} />
+            <span className="font-medium">Welcome, {user?.username}</span>
+          </div>
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-6">
             Get In Touch
           </h1>
