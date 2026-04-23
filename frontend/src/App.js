@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Navbar from './components/Navbar';
+
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
@@ -17,6 +17,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
+// import ServicesPage from './pages/ServicePage';
+// import ServiceDetailPage from './pages/ServiceDetailPage';
+import Navbar from './components/Navbar';
 
 function App() {
   const [loading, setLoading] = useState(true);
