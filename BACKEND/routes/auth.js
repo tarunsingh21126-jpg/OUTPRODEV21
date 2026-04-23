@@ -62,4 +62,16 @@ router.get('/verify', auth, async (req, res) => {
   }
 });
 
+router.get('/profile', auth, async (req, res) => {
+  const user = await User.findById(req.user._id).select('-password -__v');
+  
+  res.json({
+    message: "Protected route accessed",
+    user
+  });
+});
+
+router.get('/admin', auth('admin'), (req, res) => {
+  res.json({ message: "Admin only" });
+});
 module.exports = router;
