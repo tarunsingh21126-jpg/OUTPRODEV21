@@ -51,6 +51,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/team', teamRoutes);
+app.use("/DOCS", express.static("DOCS"));
 
 // Health check
 app.get('/api/health', (req, res) => {

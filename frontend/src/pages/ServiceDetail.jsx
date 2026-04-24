@@ -8,7 +8,7 @@ import Skeleton from '../components/Skeleton';
 
 const ServiceDetail = () => {
   const { slug } = useParams();
-  const [service, setService] = useState(null);
+  const [service, setService] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

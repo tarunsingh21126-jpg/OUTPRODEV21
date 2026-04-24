@@ -11,6 +11,7 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const BASE_URL = process.env.REACT_APP_API_URL.replace("/api", "");
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -62,13 +63,17 @@ const ProjectDetail = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            src={project.image}
+            src={project.image?.startsWith('http') ? project.image : `${BASE_URL}${project.image}`}
+            
             alt={project.title}
             className="w-full rounded-xl shadow-2xl"
+            onError={(e) => {
+              e.target.src = 'https://www.freepik.com/premium-vector/fitness-mobile-app-template_287095901.htm#fromView=search&page=1&position=13&uuid=bd4ab21d-36e5-477c-b113-8bbb9a4531fe&query=mobile+fitness+app';
+            }}
           />
         </div>
       </section>
-
+      
       {/* Details */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-4xl mx-auto">

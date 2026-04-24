@@ -1,5 +1,6 @@
 // seed.js - Populate database with sample data
 require('dotenv').config();
+
 const mongoose = require('mongoose');
 
 const Service = require('./models/Service');
@@ -74,7 +75,7 @@ const SAMPLE_DATA = {
       slug: 'ecommerce-platform',
       description: 'A comprehensive e-commerce platform with payment integration, inventory management, and real-time analytics.',
       shortDescription: 'Full-featured online store',
-      image: 'https://via.placeholder.com/600x400?text=E-commerce+Platform',
+      image: "DOCS/ecommerce.png",
       category: 'Web Application',
       technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
       kpiResults: [
@@ -91,7 +92,7 @@ const SAMPLE_DATA = {
       slug: 'saas-analytics-dashboard',
       description: 'A powerful analytics dashboard for data-driven decision making with real-time insights.',
       shortDescription: 'Real-time analytics platform',
-      image: 'https://via.placeholder.com/600x400?text=Analytics+Dashboard',
+      image: 'DOCS/saas-dashboard.png',
       category: 'Web Application',
       technologies: ['React', 'D3.js', 'Express', 'PostgreSQL'],
       kpiResults: [
@@ -108,7 +109,7 @@ const SAMPLE_DATA = {
       slug: 'mobile-fitness-app',
       description: 'A cross-platform fitness tracking application with workout plans and community features.',
       shortDescription: 'Fitness tracking & training app',
-      image: 'https://via.placeholder.com/600x400?text=Fitness+App',
+      image: 'DOCS/fitness-app.png',
       category: 'Mobile Application',
       technologies: ['React Native', 'Firebase', 'Python'],
       kpiResults: [
@@ -201,7 +202,7 @@ const SAMPLE_DATA = {
 const seedDatabase = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('🔗 Connected to MongoDB');
 
     // Clear existing data

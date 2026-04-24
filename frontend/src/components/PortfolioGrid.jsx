@@ -8,7 +8,23 @@ import Skeleton from './Skeleton';
 const PortfolioGrid = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('All');
+  const [error, setError] = useState(null);
+
+  // Get base URL for image paths (remove /api from the end)
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) {
+      return 'https://via.placeholder.com/600x400?text=Project+Image';
+    }
+    
+    // If it's already a full URL, return as is
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
+    
+    // Otherwise, prepend the base API URL (without /api)
+    const baseUrl = process.env.REACT_APP_API_URL.replace('/api', '');
+    return `${baseUrl}${imagePath}`;
+  };
 
   useEffect(() => {
     fetchProjects();
@@ -16,10 +32,14 @@ const PortfolioGrid = () => {
 
   const fetchProjects = async () => {
     try {
+      console.log('Fetching featured projects from:', `${process.env.REACT_APP_API_URL}/projects?featured=true&limit=6`);
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/projects?featured=true&limit=6`);
-      setProjects(response.data.projects);
+      console.log('Featured projects response:', response.data);
+      setProjects(response.data.projects || []);
+      setError(null);
     } catch (error) {
       console.error('Error fetching projects:', error);
+      setError('Failed to load projects');
     } finally {
       setLoading(false);
     }
@@ -73,17 +93,20 @@ const PortfolioGrid = () => {
               viewport={{ once: true }}
               className="group relative overflow-hidden rounded-xl shadow-lg bg-white dark:bg-gray-900"
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-64 overflow-hidden bg-gray-200 dark:bg-gray-700">
                 <img
-                  src={project.image}
+                  src={getImageUrl(project.image)}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  onError={(e) => {
+                    e.target.src = '';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{project.shortDescription}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{project.shortDescription}</p>
                 <Link
                   to={`/projects/${project.slug}`}
                   className="inline-block text-primary-600 dark:text-primary-400 font-semibold hover:text-primary-700 transition-colors"
