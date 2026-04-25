@@ -1,3 +1,30 @@
-# https://www.robotstxt.org/robotstxt.html
+# Robots.txt file for OutproIndia
+# Allow search engines to crawl the site
+# Reference: https://www.robotstxt.org/robotstxt.html
+
+# Default rules for all bots
 User-agent: *
-Disallow:
+Allow: /
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Block access to certain directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.js
+Disallow: /*.css
+
+# Allow crawling of static assets
+Allow: /static/
+Allow: /public/
+
+# Crawl delay settings (in seconds)
+Crawl-delay: 1
+
+# Request rate (for bots that support it)
+Request-rate: 1/10s
+
+# Sitemap location
+Sitemap: https://outproindia.com/sitemap.xml

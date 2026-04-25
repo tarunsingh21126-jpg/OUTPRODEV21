@@ -17,6 +17,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
+import AnalyticsProvider from './components/Analytics/AnalyticsProvider';
+import OptionalIntegrationsProvider from './components/Analytics/OptionalIntegrationsProvider';
 // import ServicesPage from './pages/ServicePage';
 // import ServiceDetailPage from './pages/ServiceDetailPage';
 import Navbar from './components/Navbar';
@@ -43,33 +45,39 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
-          <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-            <Navbar />
-            <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/:slug" element={<ServiceDetail />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-                <Route path="/testimonials" element={<Testimonials />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route 
-                  path="/contact" 
-                  element={
-                    <ProtectedRoute>
-                      <Contact />
-                    </ProtectedRoute>
-                  } 
-                />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </Router>
+        <OptionalIntegrationsProvider>
+
+          <Router>
+            <AnalyticsProvider>
+              <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                <Navbar />
+                <main>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/services/:slug" element={<ServiceDetail />} />
+                    <Route path="/portfolio" element={<Portfolio />} />
+                    <Route path="/projects/:slug" element={<ProjectDetail />} />
+                    <Route path="/testimonials" element={<Testimonials />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route
+                      path="/contact"
+                      element={
+                        <ProtectedRoute>
+                          <Contact />
+                        </ProtectedRoute>
+                      }
+                    />
+                  </Routes>
+                </main>
+                <Footer />
+              </div>
+            </AnalyticsProvider>
+          </Router>
+
+        </OptionalIntegrationsProvider>
       </AuthProvider>
     </ThemeProvider>
   );
